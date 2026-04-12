@@ -41,9 +41,9 @@ export default function Home() {
           </div>
 
           <div className="mt-16 flex justify-center gap-8 text-sm text-gray-600 reveal reveal-d4">
-            <div className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#9679;</span> 500+ utilisateurs</div>
-            <div className="flex items-center gap-2"><span style={{ color: "#a78bfa" }}>&#9679;</span> 4.9/5 satisfaction</div>
-            <div className="flex items-center gap-2"><span style={{ color: "#ec4899" }}>&#9679;</span> Support 24/7</div>
+            <div className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#9679;</span> 500+ utilisateurs</div>
+            <div className="flex items-center gap-2"><span style={{ color: "#fbbf24" }}>&#9679;</span> 4.9/5 satisfaction</div>
+            <div className="flex items-center gap-2"><span style={{ color: "#3b82f6" }}>&#9679;</span> Support 24/7</div>
           </div>
         </div>
       </section>
@@ -52,23 +52,23 @@ export default function Home() {
       <section className="py-16 px-6 relative">
         <div className="max-w-4xl mx-auto">
           <div className="card glow p-1 rounded-2xl reveal">
-            <div className="rounded-xl overflow-hidden" style={{ background: "#1c1030" }}>
-              <div className="flex items-center gap-2 px-4 py-3 border-b" style={{ borderColor: "#8b5cf615" }}>
+            <div className="rounded-xl overflow-hidden" style={{ background: "#1e1a0d" }}>
+              <div className="flex items-center gap-2 px-4 py-3 border-b" style={{ borderColor: "#f59e0b15" }}>
                 <div className="w-3 h-3 rounded-full" style={{ background: "#f85149" }} />
                 <div className="w-3 h-3 rounded-full" style={{ background: "#d29922" }} />
                 <div className="w-3 h-3 rounded-full" style={{ background: "#3fb950" }} />
                 <span className="ml-3 text-xs text-gray-600">comptamatchquizlog.app</span>
               </div>
               <div className="p-8 space-y-4">
-                <div className="h-4 rounded-full w-3/4" style={{ background: "#8b5cf615" }} />
-                <div className="h-4 rounded-full w-1/2" style={{ background: "#8b5cf610" }} />
+                <div className="h-4 rounded-full w-3/4" style={{ background: "#f59e0b15" }} />
+                <div className="h-4 rounded-full w-1/2" style={{ background: "#f59e0b10" }} />
                 <div className="grid grid-cols-3 gap-4 mt-6">
-                  <div className="h-24 rounded-lg" style={{ background: "#8b5cf608", border: "1px solid #8b5cf615" }} />
-                  <div className="h-24 rounded-lg" style={{ background: "#a78bfa08", border: "1px solid #a78bfa15" }} />
-                  <div className="h-24 rounded-lg" style={{ background: "#ec489908", border: "1px solid #ec489915" }} />
+                  <div className="h-24 rounded-lg" style={{ background: "#f59e0b08", border: "1px solid #f59e0b15" }} />
+                  <div className="h-24 rounded-lg" style={{ background: "#fbbf2408", border: "1px solid #fbbf2415" }} />
+                  <div className="h-24 rounded-lg" style={{ background: "#3b82f608", border: "1px solid #3b82f615" }} />
                 </div>
-                <div className="h-4 rounded-full w-2/3 mt-4" style={{ background: "#8b5cf610" }} />
-                <div className="h-4 rounded-full w-1/3" style={{ background: "#8b5cf608" }} />
+                <div className="h-4 rounded-full w-2/3 mt-4" style={{ background: "#f59e0b10" }} />
+                <div className="h-4 rounded-full w-1/3" style={{ background: "#f59e0b08" }} />
               </div>
             </div>
           </div>
@@ -115,23 +115,23 @@ export default function Home() {
               <div className="text-4xl font-extrabold mb-1">0<span className="text-lg text-gray-500">EUR</span></div>
               <p className="text-gray-500 text-sm mb-8">Pour toujours</p>
               <ul className="text-sm text-gray-400 space-y-3 mb-8 text-left">
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> Fonctions de base</li>
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> 5 utilisations / jour</li>
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> Support communautaire</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> Fonctions de base</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> 5 utilisations / jour</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> Support communautaire</li>
               </ul>
               <a href="#" className="btn-secondary w-full block text-center !text-sm">Commencer</a>
             </div>
             {/* Pro — gradient border */}
             <div className="card gradient-border text-center relative glow reveal reveal-d2 md:-mt-4 md:pb-10">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold" style={{ background: "linear-gradient(135deg, #8b5cf6, #a78bfa)", color: "white" }}>POPULAIRE</div>
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold" style={{ background: "linear-gradient(135deg, #f59e0b, #fbbf24)", color: "white" }}>POPULAIRE</div>
               <h3 className="font-bold text-lg mb-2 mt-2">Pro</h3>
               <div className="text-5xl font-extrabold mb-1">9.99<span className="text-lg text-gray-500">EUR</span></div>
               <p className="text-gray-500 text-sm mb-8">/ mois</p>
               <ul className="text-sm text-gray-400 space-y-3 mb-8 text-left">
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> Tout du plan Starter</li>
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> Utilisations illimitees</li>
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> Support prioritaire</li>
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> Export PDF / API</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> Tout du plan Starter</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> Utilisations illimitees</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> Support prioritaire</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> Export PDF / API</li>
               </ul>
               <a href="#" className="btn-primary w-full block text-center !text-sm"><span>Souscrire</span></a>
             </div>
@@ -141,10 +141,10 @@ export default function Home() {
               <div className="text-4xl font-extrabold mb-1">29.99<span className="text-lg text-gray-500">EUR</span></div>
               <p className="text-gray-500 text-sm mb-8">/ mois</p>
               <ul className="text-sm text-gray-400 space-y-3 mb-8 text-left">
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> Tout du plan Pro</li>
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> Multi-utilisateurs</li>
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> SLA garanti</li>
-                <li className="flex items-center gap-2"><span style={{ color: "#8b5cf6" }}>&#10003;</span> Integration sur mesure</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> Tout du plan Pro</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> Multi-utilisateurs</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> SLA garanti</li>
+                <li className="flex items-center gap-2"><span style={{ color: "#f59e0b" }}>&#10003;</span> Integration sur mesure</li>
               </ul>
               <a href="#" className="btn-secondary w-full block text-center !text-sm">Contacter</a>
             </div>
@@ -161,10 +161,10 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="card reveal reveal-d1">
-              <div className="flex gap-1 mb-4" style={{ color: "#ec4899" }}>*****</div>
+              <div className="flex gap-1 mb-4" style={{ color: "#3b82f6" }}>*****</div>
               <p className="text-gray-300 italic mb-6 leading-relaxed">"Excellent produit."</p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#8b5cf620", color: "#8b5cf6" }}>M</div>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#f59e0b20", color: "#f59e0b" }}>M</div>
                 <div>
                   <p className="font-semibold text-sm">Marie D.</p>
                   <p className="text-xs text-gray-500">CEO</p>
@@ -172,10 +172,10 @@ export default function Home() {
               </div>
             </div>
             <div className="card reveal reveal-d2">
-              <div className="flex gap-1 mb-4" style={{ color: "#ec4899" }}>*****</div>
+              <div className="flex gap-1 mb-4" style={{ color: "#3b82f6" }}>*****</div>
               <p className="text-gray-300 italic mb-6 leading-relaxed">"Simple et efficace."</p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#8b5cf620", color: "#8b5cf6" }}>T</div>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#f59e0b20", color: "#f59e0b" }}>T</div>
                 <div>
                   <p className="font-semibold text-sm">Thomas L.</p>
                   <p className="text-xs text-gray-500">Dev</p>
@@ -183,10 +183,10 @@ export default function Home() {
               </div>
             </div>
             <div className="card reveal reveal-d3">
-              <div className="flex gap-1 mb-4" style={{ color: "#ec4899" }}>*****</div>
+              <div className="flex gap-1 mb-4" style={{ color: "#3b82f6" }}>*****</div>
               <p className="text-gray-300 italic mb-6 leading-relaxed">"Je recommande."</p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#8b5cf620", color: "#8b5cf6" }}>S</div>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#f59e0b20", color: "#f59e0b" }}>S</div>
                 <div>
                   <p className="font-semibold text-sm">Sophie M.</p>
                   <p className="text-xs text-gray-500">Freelance</p>
