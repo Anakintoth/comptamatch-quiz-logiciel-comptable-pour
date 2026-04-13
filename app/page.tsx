@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 /* ══════════════════════════════════
    Quiz data
@@ -11,7 +11,7 @@ const QUIZ_QUESTIONS = [
     question: 'Quelle est la taille de votre structure ?',
     emoji: '🏢',
     options: [
-      { label: 'Indépendant / Freelance', icon: '👤' },
+      { label: 'Micro-entrepreneur / Freelance', icon: '👤' },
       { label: 'TPE (1–9 salariés)', icon: '🏪' },
       { label: 'PME (10–250 salariés)', icon: '🏗️' },
       { label: 'Grande entreprise / Cabinet', icon: '🏦' },
@@ -73,7 +73,7 @@ function QuizSection() {
   const [selected, setSelected] = useState<number | null>(null);
   const [result, setResult] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
-  const resultRef = useRef<HTMLDivElement>(null);
+  const [resultEl, setResultEl] = useState<HTMLDivElement | null>(null);
 
   const progress = ((currentQ + (selected !== null ? 1 : 0)) / QUIZ_QUESTIONS.length) * 100;
 
@@ -84,13 +84,11 @@ function QuizSection() {
   function handleNext() {
     if (selected === null) return;
     const newAnswers = [...answers, QUIZ_QUESTIONS[currentQ].options[selected].label];
-
     if (currentQ < QUIZ_QUESTIONS.length - 1) {
       setAnswers(newAnswers);
       setSelected(null);
       setCurrentQ(currentQ + 1);
     } else {
-      // Submit
       setAnswers(newAnswers);
       submitQuiz(newAnswers);
     }
@@ -100,9 +98,8 @@ function QuizSection() {
     setStep('loading');
     setResult('');
 
-    const prompt = QUIZ_QUESTIONS.map((q, i) =>
-      `${q.question}\nRéponse : ${finalAnswers[i]}`
-    ).join('\n\n') +
+    const prompt =
+      QUIZ_QUESTIONS.map((q, i) => `${q.question}\nRéponse : ${finalAnswers[i]}`).join('\n\n') +
       '\n\nEn te basant sur ces réponses, recommande le ou les logiciels comptables français les plus adaptés. Explique pourquoi chaque logiciel correspond au profil, mentionne 1-2 points forts clés et le tarif approximatif. Sois précis, structuré et pratique (3-4 paragraphes max).';
 
     try {
@@ -126,14 +123,12 @@ function QuizSection() {
         if (done) break;
         text += decoder.decode(value, { stream: true });
         setResult(text);
-        if (resultRef.current) {
-          resultRef.current.scrollTop = resultRef.current.scrollHeight;
-        }
+        if (resultEl) resultEl.scrollTop = resultEl.scrollHeight;
       }
       setIsStreaming(false);
     } catch {
       setStep('result');
-      setResult("Une erreur est survenue. Veuillez réessayer dans quelques instants.");
+      setResult('Une erreur est survenue. Veuillez réessayer dans quelques instants.');
       setIsStreaming(false);
     }
   }
@@ -150,18 +145,32 @@ function QuizSection() {
   if (step === 'intro') {
     return (
       <div className="text-center">
-        <div className="feature-icon mx-auto" style={{ width: 72, height: 72, fontSize: '2rem', borderRadius: 20 }}>🎯</div>
-        <h3 className="text-2xl font-bold mt-4 mb-3">Trouvez votre logiciel idéal en 2 minutes</h3>
+        <div
+          className="feature-icon mx-auto"
+          style={{ width: 72, height: 72, fontSize: '2rem', borderRadius: 20 }}
+        >
+          ⚡
+        </div>
+        <h3 className="text-2xl font-bold mt-4 mb-3">
+          Trouvez votre match comptable en 2 minutes
+        </h3>
         <p className="text-gray-400 mb-8 max-w-md mx-auto leading-relaxed">
-          Répondez à 5 questions sur votre activité et notre IA analyse votre profil pour vous recommander le logiciel comptable parfait.
+          Répondez à 5 questions. Notre IA analyse votre profil et vous matche avec le logiciel
+          comptable parfait parmi Sage, Cegid, QuickBooks, EBP, Pennylane et bien d&apos;autres.
         </p>
         <div className="flex gap-3 justify-center flex-wrap text-sm text-gray-500 mb-8">
-          <span className="flex items-center gap-1.5"><span style={{ color: '#2E9E72' }}>✓</span> 5 questions seulement</span>
-          <span className="flex items-center gap-1.5"><span style={{ color: '#2E9E72' }}>✓</span> Recommandation IA personnalisée</span>
-          <span className="flex items-center gap-1.5"><span style={{ color: '#2E9E72' }}>✓</span> 100% gratuit</span>
+          <span className="flex items-center gap-1.5">
+            <span style={{ color: '#818CF8' }}>✓</span> 5 questions seulement
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span style={{ color: '#818CF8' }}>✓</span> Recommandation IA personnalisée
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span style={{ color: '#818CF8' }}>✓</span> 100% gratuit
+          </span>
         </div>
         <button onClick={() => setStep('quiz')} className="btn-primary">
-          <span>Démarrer le quiz</span>
+          <span>⚡ Démarrer le matching</span>
         </button>
       </div>
     );
@@ -171,22 +180,23 @@ function QuizSection() {
     const q = QUIZ_QUESTIONS[currentQ];
     return (
       <div>
-        {/* Progress */}
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs text-gray-500 font-medium">Question {currentQ + 1} / {QUIZ_QUESTIONS.length}</span>
-          <span className="text-xs font-semibold" style={{ color: '#2E9E72' }}>{Math.round(progress)}%</span>
+          <span className="text-xs text-gray-500 font-medium">
+            Question {currentQ + 1} / {QUIZ_QUESTIONS.length}
+          </span>
+          <span className="text-xs font-semibold" style={{ color: '#818CF8' }}>
+            {Math.round(progress)}%
+          </span>
         </div>
         <div className="progress-bar mb-8">
           <div className="progress-fill" style={{ width: `${progress}%` }} />
         </div>
 
-        {/* Question */}
         <div className="mb-7">
           <span className="text-2xl">{q.emoji}</span>
           <h3 className="text-xl font-bold mt-2">{q.question}</h3>
         </div>
 
-        {/* Options */}
         <div className="space-y-3 mb-8">
           {q.options.map((opt, i) => (
             <button
@@ -197,7 +207,9 @@ function QuizSection() {
               <span className="text-xl">{opt.icon}</span>
               <span className="font-medium text-sm">{opt.label}</span>
               {selected === i && (
-                <span className="ml-auto text-xs font-bold" style={{ color: '#2E9E72' }}>✓</span>
+                <span className="ml-auto text-xs font-bold" style={{ color: '#818CF8' }}>
+                  ✓
+                </span>
               )}
             </button>
           ))}
@@ -206,7 +218,10 @@ function QuizSection() {
         <div className="flex gap-3">
           {currentQ > 0 && (
             <button
-              onClick={() => { setCurrentQ(currentQ - 1); setSelected(null); }}
+              onClick={() => {
+                setCurrentQ(currentQ - 1);
+                setSelected(null);
+              }}
               className="btn-secondary !px-5 !py-3 !text-sm"
             >
               ← Retour
@@ -216,9 +231,16 @@ function QuizSection() {
             onClick={handleNext}
             disabled={selected === null}
             className="btn-primary flex-1"
-            style={{ opacity: selected === null ? 0.45 : 1, cursor: selected === null ? 'not-allowed' : 'pointer' }}
+            style={{
+              opacity: selected === null ? 0.45 : 1,
+              cursor: selected === null ? 'not-allowed' : 'pointer',
+            }}
           >
-            <span>{currentQ === QUIZ_QUESTIONS.length - 1 ? 'Obtenir ma recommandation IA →' : 'Suivant →'}</span>
+            <span>
+              {currentQ === QUIZ_QUESTIONS.length - 1
+                ? 'Obtenir mon match IA →'
+                : 'Suivant →'}
+            </span>
           </button>
         </div>
       </div>
@@ -229,25 +251,34 @@ function QuizSection() {
     return (
       <div className="text-center py-8">
         <div className="spinner mx-auto mb-6" />
-        <p className="text-gray-300 font-semibold mb-2">Analyse de votre profil en cours…</p>
-        <p className="text-gray-500 text-sm">Notre IA compare votre profil avec 20+ logiciels du marché</p>
+        <p className="text-gray-300 font-semibold mb-2">Matching en cours…</p>
+        <p className="text-gray-500 text-sm">
+          Notre IA compare votre profil avec 20+ logiciels du marché
+        </p>
       </div>
     );
   }
 
-  // Result
   return (
     <div>
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ background: 'rgba(46,158,114,0.15)', border: '1px solid rgba(46,158,114,0.3)' }}>✨</div>
+        <div
+          className="w-10 h-10 rounded-xl flex items-center justify-center text-lg"
+          style={{
+            background: 'rgba(99,102,241,0.15)',
+            border: '1px solid rgba(99,102,241,0.3)',
+          }}
+        >
+          ✨
+        </div>
         <div>
-          <p className="font-bold">Votre recommandation personnalisée</p>
-          <p className="text-xs text-gray-500">Générée par IA · Basée sur votre profil</p>
+          <p className="font-bold">Votre match personnalisé</p>
+          <p className="text-xs text-gray-500">Généré par IA · Basé sur votre profil</p>
         </div>
       </div>
 
       <div
-        ref={resultRef}
+        ref={(el) => setResultEl(el)}
         className="text-sm text-gray-300 leading-relaxed whitespace-pre-wrap max-h-72 overflow-y-auto pr-2 mb-6"
         style={{ scrollbarWidth: 'thin' }}
       >
@@ -286,22 +317,36 @@ export default function Home() {
 
       {/* ══ NAVBAR ══ */}
       <nav
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${navScrolled ? 'glass-strong py-3' : 'py-5'}`}
-        style={{ borderBottom: navScrolled ? '1px solid rgba(255,255,255,0.07)' : 'none' }}
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          navScrolled ? 'glass-strong py-3' : 'py-5'
+        }`}
       >
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black" style={{ background: 'linear-gradient(135deg,#1A6B4A,#2E9E72)' }}>C</div>
-            <span className="text-lg font-extrabold tracking-tight">ComptaQuiz</span>
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black"
+              style={{ background: 'linear-gradient(135deg,#6366F1,#8B5CF6)' }}
+            >
+              ⚡
+            </div>
+            <span className="text-lg font-extrabold tracking-tight">ComptaMatch</span>
           </div>
           <div className="hidden md:flex gap-7 text-sm text-gray-400">
-            <a href="#features" className="hover:text-white transition-colors duration-200 font-medium">Fonctionnalités</a>
-            <a href="#quiz" className="hover:text-white transition-colors duration-200 font-medium">Quiz IA</a>
-            <a href="#pricing" className="hover:text-white transition-colors duration-200 font-medium">Tarifs</a>
-            <a href="#faq" className="hover:text-white transition-colors duration-200 font-medium">FAQ</a>
+            <a href="#features" className="hover:text-white transition-colors duration-200 font-medium">
+              Fonctionnalités
+            </a>
+            <a href="#quiz" className="hover:text-white transition-colors duration-200 font-medium">
+              Quiz IA
+            </a>
+            <a href="#pricing" className="hover:text-white transition-colors duration-200 font-medium">
+              Tarifs
+            </a>
+            <a href="#faq" className="hover:text-white transition-colors duration-200 font-medium">
+              FAQ
+            </a>
           </div>
           <a href="#quiz" className="btn-primary !px-5 !py-2 !text-sm !rounded-xl">
-            <span>Essayer gratuitement</span>
+            <span>Trouver mon match</span>
           </a>
         </div>
       </nav>
@@ -314,39 +359,43 @@ export default function Home() {
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div className="badge float-badge mb-8 reveal">
-            🚀 Recommandation IA en temps réel
+            ⚡ Matching IA en temps réel
           </div>
 
           <h1 className="text-6xl md:text-8xl font-black mb-6 leading-[1.05] tracking-tighter reveal reveal-d1">
-            <span className="gradient-text">Le quiz qui trouve</span>
+            <span className="gradient-text">Le quiz qui matche</span>
             <br />
             <span className="text-white">votre logiciel parfait</span>
           </h1>
 
           <p className="text-lg md:text-xl text-gray-300 mb-3 max-w-2xl mx-auto leading-relaxed reveal reveal-d2">
-            Répondez à 5 questions. Notre IA analyse votre profil et vous recommande
-            le logiciel comptable idéal parmi Sage, Cegid, QuickBooks, EBP et bien d&apos;autres.
+            5 questions. Notre IA analyse votre profil de micro-entrepreneur et vous matche
+            avec le logiciel comptable idéal — Sage, Cegid, QuickBooks, EBP, Pennylane et 15+
+            autres solutions.
           </p>
           <p className="text-gray-500 mb-12 max-w-lg mx-auto text-sm reveal reveal-d2">
-            Des certifications reconnues. Un tableau de bord de progression. Pour les professionnels et les étudiants.
+            Gratuit, instantané, et précis. Plus de 3 000 indépendants ont déjà trouvé leur
+            match.
           </p>
 
           <div className="flex gap-4 justify-center flex-wrap reveal reveal-d3">
             <a href="#quiz" className="btn-primary !text-base">
-              <span>🎯 Démarrer le quiz IA</span>
+              <span>⚡ Lancer le quiz IA</span>
             </a>
-            <a href="#features" className="btn-secondary !text-base">Découvrir →</a>
+            <a href="#features" className="btn-secondary !text-base">
+              Découvrir →
+            </a>
           </div>
 
           {/* Stats */}
           <div className="mt-16 flex justify-center gap-10 reveal reveal-d4">
             <div className="stat-item">
-              <span className="stat-number">2 500+</span>
-              <span className="text-xs text-gray-500 uppercase tracking-widest">utilisateurs</span>
+              <span className="stat-number">3 200+</span>
+              <span className="text-xs text-gray-500 uppercase tracking-widest">matchings</span>
             </div>
             <div className="w-px bg-white opacity-5 self-stretch" />
             <div className="stat-item">
-              <span className="stat-number">98%</span>
+              <span className="stat-number">97%</span>
               <span className="text-xs text-gray-500 uppercase tracking-widest">satisfaction</span>
             </div>
             <div className="w-px bg-white opacity-5 self-stretch" />
@@ -366,38 +415,60 @@ export default function Home() {
               <div className="browser-dot" style={{ background: '#f85149' }} />
               <div className="browser-dot" style={{ background: '#d29922' }} />
               <div className="browser-dot" style={{ background: '#3fb950' }} />
-              <div className="browser-url">comptaquiz.app/quiz</div>
+              <div className="browser-url">comptamatch.app/quiz</div>
             </div>
-            <div className="p-8" style={{ background: 'linear-gradient(180deg, #0A1810 0%, #080F0C 100%)' }}>
-              {/* Fake quiz UI */}
+            <div
+              className="p-8"
+              style={{ background: 'linear-gradient(180deg, #0A0A18 0%, #07070F 100%)' }}
+            >
               <div className="mb-5">
                 <div className="flex justify-between text-xs text-gray-600 mb-2">
                   <span>Question 3 / 5</span>
-                  <span style={{ color: '#2E9E72' }}>60%</span>
+                  <span style={{ color: '#818CF8' }}>60%</span>
                 </div>
                 <div className="progress-bar">
                   <div className="progress-fill" style={{ width: '60%' }} />
                 </div>
               </div>
-              <div className="text-sm font-semibold text-gray-300 mb-4">💶 Quel est votre budget mensuel ?</div>
-              <div className="space-y-2.5">
-                {['Gratuit uniquement', 'Moins de 50 €/mois', '50 – 200 €/mois', 'Plus de 200 €/mois'].map((opt, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-xs"
-                    style={{
-                      border: i === 2 ? '1px solid #2E9E72' : '1px solid rgba(255,255,255,0.06)',
-                      background: i === 2 ? 'rgba(46,158,114,0.1)' : 'rgba(255,255,255,0.02)',
-                      color: i === 2 ? '#e2e8f0' : '#6B7280',
-                    }}
-                  >
-                    <span>{['🆓','💰','💳','🏆'][i]}</span>
-                    <span>{opt}</span>
-                    {i === 2 && <span className="ml-auto" style={{ color: '#2E9E72' }}>✓</span>}
-                  </div>
-                ))}
+              <div className="text-sm font-semibold text-gray-300 mb-4">
+                💶 Quel est votre budget mensuel ?
               </div>
-              <div className="mt-5 h-8 w-36 rounded-xl" style={{ background: 'linear-gradient(135deg,#1A6B4A,#2E9E72)', opacity: 0.85 }} />
+              <div className="space-y-2.5">
+                {['Gratuit uniquement', 'Moins de 50 €/mois', '50 – 200 €/mois', 'Plus de 200 €/mois'].map(
+                  (opt, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-xs"
+                      style={{
+                        border:
+                          i === 1
+                            ? '1px solid #6366F1'
+                            : '1px solid rgba(255,255,255,0.06)',
+                        background:
+                          i === 1
+                            ? 'rgba(99,102,241,0.1)'
+                            : 'rgba(255,255,255,0.02)',
+                        color: i === 1 ? '#e2e8f0' : '#6B7280',
+                      }}
+                    >
+                      <span>{['🆓', '💰', '💳', '🏆'][i]}</span>
+                      <span>{opt}</span>
+                      {i === 1 && (
+                        <span className="ml-auto" style={{ color: '#818CF8' }}>
+                          ✓
+                        </span>
+                      )}
+                    </div>
+                  )
+                )}
+              </div>
+              <div
+                className="mt-5 h-8 w-40 rounded-xl"
+                style={{
+                  background: 'linear-gradient(135deg,#6366F1,#8B5CF6)',
+                  opacity: 0.85,
+                }}
+              />
             </div>
           </div>
         </div>
@@ -409,31 +480,60 @@ export default function Home() {
           <div className="text-center mb-16">
             <div className="badge mb-4">Fonctionnalités</div>
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
-              Conçu pour les pros de la compta
+              Conçu pour les micro-entrepreneurs
             </h2>
-            <p className="text-gray-500 max-w-lg mx-auto">Des outils précis, des contenus vérifiés par des experts-comptables certifiés.</p>
+            <p className="text-gray-500 max-w-lg mx-auto">
+              Un moteur de matching intelligent pour trouver le logiciel qui colle vraiment à
+              votre réalité terrain.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="card reveal reveal-d1">
-              <div className="feature-icon">📋</div>
-              <h3 className="font-bold text-lg mb-2">Quiz adaptatifs multi-logiciels</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Sage 50/100, Cegid Quadratus, QuickBooks, EBP, Pennylane — 500+ questions élaborées avec des experts-comptables pour coller à la réalité terrain.</p>
-            </div>
-            <div className="card reveal reveal-d2">
-              <div className="feature-icon">🤖</div>
-              <h3 className="font-bold text-lg mb-2">Recommandation IA personnalisée</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Notre IA analyse votre secteur, votre taille d&apos;entreprise et votre budget pour vous orienter vers les logiciels les mieux adaptés à votre situation.</p>
-            </div>
-            <div className="card reveal reveal-d3">
-              <div className="feature-icon">🏆</div>
-              <h3 className="font-bold text-lg mb-2">Certifications valorisantes</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Décrochez des certifications reconnues par un réseau de 300+ cabinets partenaires. Ajoutez-les directement à votre profil LinkedIn.</p>
-            </div>
-            <div className="card reveal reveal-d4">
-              <div className="feature-icon">📈</div>
-              <h3 className="font-bold text-lg mb-2">Tableau de bord de progression</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Suivez vos scores par logiciel, identifiez vos lacunes, et recevez des recommandations de révision ciblées pour progresser efficacement.</p>
-            </div>
+            {[
+              {
+                icon: '⚡',
+                title: 'Matching IA ultra-précis',
+                desc: "Notre algorithme compare votre profil (secteur, taille, budget, priorités) avec les caractéristiques détaillées de 20+ logiciels pour vous proposer le match le plus pertinent.",
+                delay: 'reveal-d1',
+              },
+              {
+                icon: '🎯',
+                title: 'Quiz adapté micro-entrepreneurs',
+                desc: "5 questions ciblées sur la réalité des indépendants et TPE françaises. Pas de jargon technique — des réponses claires, adaptées à votre quotidien et à votre niveau d'expertise.",
+                delay: 'reveal-d2',
+              },
+              {
+                icon: '📊',
+                title: 'Comparatif détaillé instantané',
+                desc: "Pour chaque recommandation, obtenez un récapitulatif des points forts, des limites, et du tarif réel. Sage, Cegid, EBP, Pennylane, QuickBooks — comparés objectivement.",
+                delay: 'reveal-d3',
+              },
+              {
+                icon: '🔄',
+                title: 'Mise à jour permanente du catalogue',
+                desc: "Notre base de données est enrichie chaque mois avec les nouvelles versions, tarifs et fonctionnalités des logiciels. Vous avez toujours une recommandation à jour.",
+                delay: 'reveal-d4',
+              },
+            ].map((f) => (
+              <div
+                key={f.title}
+                className={`card spotlight-card reveal ${f.delay}`}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  e.currentTarget.style.setProperty(
+                    '--mouse-x',
+                    e.clientX - rect.left + 'px'
+                  );
+                  e.currentTarget.style.setProperty(
+                    '--mouse-y',
+                    e.clientY - rect.top + 'px'
+                  );
+                }}
+              >
+                <div className="feature-icon">{f.icon}</div>
+                <h3 className="font-bold text-lg mb-2">{f.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -445,9 +545,12 @@ export default function Home() {
           <div className="text-center mb-14">
             <div className="badge badge-accent mb-4">Quiz IA</div>
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
-              Votre recommandation <span className="gradient-text">en temps réel</span>
+              Votre match{' '}
+              <span className="gradient-text">en temps réel</span>
             </h2>
-            <p className="text-gray-500 max-w-lg mx-auto">5 questions. Une recommandation IA précise. Gratuit et instantané.</p>
+            <p className="text-gray-500 max-w-lg mx-auto">
+              5 questions. Un match IA précis. Gratuit et instantané.
+            </p>
           </div>
 
           <div className="max-w-xl mx-auto">
@@ -458,12 +561,61 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ══ HOW IT WORKS ══ */}
+      <section className="py-20 px-6 relative">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-14">
+            <div className="badge badge-violet mb-4">Comment ça marche</div>
+            <h2 className="text-4xl font-extrabold tracking-tight">3 étapes, 1 match parfait</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                step: '01',
+                icon: '📋',
+                title: 'Répondez au quiz',
+                desc: '5 questions sur votre activité, votre budget et vos priorités. Moins de 2 minutes.',
+                delay: 'reveal-d1',
+              },
+              {
+                step: '02',
+                icon: '🤖',
+                title: "L'IA analyse votre profil",
+                desc: 'Notre moteur compare votre profil avec les caractéristiques de 20+ logiciels en temps réel.',
+                delay: 'reveal-d2',
+              },
+              {
+                step: '03',
+                icon: '✅',
+                title: 'Recevez votre match',
+                desc: 'Une recommandation personnalisée avec justifications, points forts et tarifs réels.',
+                delay: 'reveal-d3',
+              },
+            ].map((s) => (
+              <div key={s.step} className={`card text-center reveal ${s.delay}`}>
+                <div
+                  className="text-xs font-black tracking-widest mb-4 opacity-30"
+                  style={{ color: '#818CF8' }}
+                >
+                  {s.step}
+                </div>
+                <div className="feature-icon mx-auto">{s.icon}</div>
+                <h3 className="font-bold text-base mb-2">{s.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ══ PRICING ══ */}
       <section id="pricing" className="py-28 px-6 relative">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <div className="badge mb-4">Tarifs</div>
-            <h2 className="text-4xl font-extrabold mb-4 tracking-tight">Simple et transparent</h2>
+            <h2 className="text-4xl font-extrabold mb-4 tracking-tight">
+              Simple et transparent
+            </h2>
             <p className="text-gray-500">Commencez gratuitement. Évoluez quand vous êtes prêt.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
@@ -476,36 +628,68 @@ export default function Home() {
               </div>
               <p className="text-gray-500 text-xs mb-8 uppercase tracking-widest">Pour toujours</p>
               <ul className="text-sm text-gray-400 space-y-3 mb-8 text-left">
-                {['Quiz gratuits illimités', '5 recommandations IA / mois', 'Tableau de bord basique', 'Support communautaire'].map(f => (
+                {[
+                  'Quiz gratuits illimités',
+                  '3 matchings IA / mois',
+                  'Comparatif basique',
+                  'Support communautaire',
+                ].map((f) => (
                   <li key={f} className="flex items-start gap-2.5">
-                    <span className="mt-0.5 text-xs" style={{ color: '#2E9E72' }}>✓</span>{f}
+                    <span className="mt-0.5 text-xs" style={{ color: '#818CF8' }}>
+                      ✓
+                    </span>
+                    {f}
                   </li>
                 ))}
               </ul>
-              <a href="#quiz" className="btn-secondary w-full !text-sm !py-3">Commencer</a>
+              <a href="#quiz" className="btn-secondary w-full !text-sm !py-3">
+                Commencer
+              </a>
             </div>
 
             {/* Pro */}
-            <div className="card gradient-border text-center relative glow reveal reveal-d2 md:-mt-5 md:pb-12">
+            <div className="card gradient-border pricing-featured text-center relative glow reveal reveal-d2 md:-mt-5 md:pb-12">
               <div
-                className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-black tracking-widest uppercase"
-                style={{ background: 'linear-gradient(135deg,#1A6B4A,#2E9E72)', color: 'white' }}
+                className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-black tracking-widest uppercase whitespace-nowrap"
+                style={{
+                  background: 'linear-gradient(135deg,#6366F1,#8B5CF6)',
+                  color: 'white',
+                }}
               >
                 ⭐ Populaire
               </div>
-              <h3 className="font-bold text-lg mb-2 mt-4">Expert</h3>
-              <div className="text-5xl font-black mb-1 mt-4" style={{ background: 'linear-gradient(135deg,#2E9E72,#06D6A0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <h3 className="font-bold text-lg mb-2 mt-4">Match Pro</h3>
+              <div
+                className="text-5xl font-black mb-1 mt-4"
+                style={{
+                  background: 'linear-gradient(135deg,#818CF8,#C4B5FD)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
                 9.99
               </div>
               <p className="text-gray-500 text-xs mb-8 uppercase tracking-widest">€ / mois</p>
               <ul className="text-sm text-gray-400 space-y-3 mb-8 text-left">
-                {['Tout du plan Découverte', 'Recommandations IA illimitées', 'Certifications premium', 'Export PDF & partage LinkedIn', 'Support prioritaire 24h'].map(f => (
+                {[
+                  'Tout du plan Découverte',
+                  'Matchings IA illimités',
+                  'Comparatif détaillé complet',
+                  'Export PDF de votre recommandation',
+                  'Support prioritaire 48h',
+                ].map((f) => (
                   <li key={f} className="flex items-start gap-2.5">
-                    <span className="mt-0.5 text-xs" style={{ color: '#2E9E72' }}>✓</span>{f}
+                    <span className="mt-0.5 text-xs" style={{ color: '#818CF8' }}>
+                      ✓
+                    </span>
+                    {f}
                   </li>
                 ))}
               </ul>
-              <a href="#" className="btn-primary w-full !text-sm !py-3"><span>Souscrire maintenant</span></a>
+              <a href="#" className="btn-primary w-full !text-sm !py-3">
+                <span>Souscrire maintenant</span>
+              </a>
             </div>
 
             {/* Cabinet */}
@@ -516,13 +700,24 @@ export default function Home() {
               </div>
               <p className="text-gray-500 text-xs mb-8 uppercase tracking-widest">€ / mois</p>
               <ul className="text-sm text-gray-400 space-y-3 mb-8 text-left">
-                {['Tout du plan Expert', 'Jusqu\'à 20 utilisateurs', 'Tableau de bord équipe', 'Évaluation candidats (RH)', 'SLA & intégration sur mesure'].map(f => (
+                {[
+                  'Tout du plan Match Pro',
+                  "Jusqu'à 20 utilisateurs",
+                  'Tableau de bord équipe',
+                  'Évaluation de candidats (RH)',
+                  'SLA & intégration sur mesure',
+                ].map((f) => (
                   <li key={f} className="flex items-start gap-2.5">
-                    <span className="mt-0.5 text-xs" style={{ color: '#2E9E72' }}>✓</span>{f}
+                    <span className="mt-0.5 text-xs" style={{ color: '#818CF8' }}>
+                      ✓
+                    </span>
+                    {f}
                   </li>
                 ))}
               </ul>
-              <a href="#" className="btn-secondary w-full !text-sm !py-3">Contacter l&apos;équipe</a>
+              <a href="#" className="btn-secondary w-full !text-sm !py-3">
+                Contacter l&apos;équipe
+              </a>
             </div>
           </div>
         </div>
@@ -533,26 +728,26 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <div className="badge mb-4">Témoignages</div>
-            <h2 className="text-4xl font-extrabold tracking-tight">Ils ont trouvé leur logiciel</h2>
+            <h2 className="text-4xl font-extrabold tracking-tight">Ils ont trouvé leur match</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
               {
-                text: "\"Le quiz ComptaQuiz m'a orientée vers Pennylane en 2 minutes. Un conseil que j'aurais mis des heures à trouver seule. Et la recommandation était parfaite pour mon profil freelance.\"",
+                text: '"ComptaMatch m\'a orientée vers Pennylane en moins de 2 minutes. Le quiz a parfaitement cerné mon profil de freelance en conseil — et la recommandation était spot on. J\'aurais mis des semaines à trouver ça toute seule."',
                 name: 'Sophie Marchand',
                 role: 'Consultante indépendante, Paris',
                 init: 'S',
               },
               {
-                text: '"On utilise ComptaQuiz pour pré-qualifier nos candidats en entretien. Le score sur Cegid et Sage nous donne un indicateur objectif et fiable. Gain de temps énorme pour notre cabinet."',
-                name: 'Julien Perrot',
-                role: 'Directeur associé, Cabinet BDM',
-                init: 'J',
+                text: '"Je cherchais un logiciel pour ma micro-entreprise de BTP depuis des mois. ComptaMatch m\'a recommandé EBP Bâtiment avec une justification ultra-claire. Le match était parfait, j\'ai souscrit dans la semaine."',
+                name: 'Thomas Renaud',
+                role: 'Artisan électricien, Lyon',
+                init: 'T',
               },
               {
-                text: "\"J'ai passé la certification Sage 100 grâce aux quiz. Les questions sont vraiment représentatives de ce qu'on retrouve sur le logiciel. Ça m'a aidé à décrocher mon poste.\"",
+                text: '"En tant que DAF, j\'utilise ComptaMatch pour mes clients TPE qui me demandent des conseils sur les logiciels. Gain de temps énorme — la recommandation IA est plus précise que mes comparatifs manuels."',
                 name: 'Amina Belkadi',
-                role: 'Étudiante DCG, Lyon',
+                role: 'Expert-comptable, Bordeaux',
                 init: 'A',
               },
             ].map((t, i) => (
@@ -562,7 +757,11 @@ export default function Home() {
                 <div className="flex items-center gap-3">
                   <div
                     className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-                    style={{ background: 'rgba(26,107,74,0.18)', color: '#2E9E72', border: '1px solid rgba(46,158,114,0.25)' }}
+                    style={{
+                      background: 'rgba(99,102,241,0.15)',
+                      color: '#818CF8',
+                      border: '1px solid rgba(99,102,241,0.25)',
+                    }}
                   >
                     {t.init}
                   </div>
@@ -587,29 +786,35 @@ export default function Home() {
           <div className="space-y-3">
             {[
               {
-                q: 'Quels logiciels comptables le quiz couvre-t-il ?',
-                a: 'ComptaQuiz couvre 20+ logiciels dont Sage 50/100, Cegid Quadratus, QuickBooks, EBP Comptabilité, Pennylane, Evoliz, Indy et bien d\'autres. Notre catalogue s\'enrichit chaque trimestre en partenariat avec les éditeurs.',
+                q: 'Quels logiciels comptables ComptaMatch couvre-t-il ?',
+                a: "ComptaMatch couvre 20+ logiciels dont Sage 50/100, Cegid Quadratus, QuickBooks, EBP Comptabilité, Pennylane, Evoliz, Indy, Axonaut, Sellsy, Henrri et bien d'autres. Notre catalogue s'enrichit chaque trimestre avec les nouvelles solutions du marché.",
               },
               {
-                q: 'Comment fonctionne la recommandation IA ?',
-                a: 'Notre IA analyse vos 5 réponses (taille, secteur, budget, priorité, équipe) et les compare avec les caractéristiques de chaque logiciel. Elle génère une recommandation personnalisée en temps réel, avec des justifications claires et des tarifs indicatifs.',
+                q: 'Comment fonctionne le matching IA ?',
+                a: "Notre IA analyse vos 5 réponses (taille de structure, secteur, budget, priorité, gestionnaire comptable) et les compare avec les caractéristiques détaillées de chaque logiciel. Elle génère en temps réel une recommandation personnalisée avec des justifications claires et des tarifs indicatifs.",
               },
               {
-                q: 'Les certifications ComptaQuiz sont-elles reconnues ?',
-                a: 'Nos certifications sont reconnues par un réseau de 300+ cabinets et entreprises partenaires. Elles sont intégrables directement sur LinkedIn et constituent un atout concret lors d\'entretiens ou d\'évaluations de candidats.',
+                q: 'ComptaMatch est-il vraiment gratuit ?',
+                a: "Oui, le plan Découverte est 100% gratuit et vous donne accès à 3 matchings IA par mois, sans carte bancaire requise. Le plan Match Pro (9.99 €/mois) débloque les matchings illimités, les comparatifs détaillés et l'export PDF.",
               },
               {
-                q: 'Puis-je utiliser ComptaQuiz pour évaluer mes collaborateurs ?',
-                a: 'Oui, l\'offre Cabinet (à partir de 29.99 €/mois) permet de gérer jusqu\'à 20 utilisateurs, de consulter leurs scores par logiciel et de générer des rapports d\'équipe. Idéal pour les cabinets d\'expertise et les DAF.',
+                q: 'Puis-je utiliser ComptaMatch pour conseiller mes clients ?',
+                a: "Absolument. L'offre Cabinet (29.99 €/mois) est conçue pour les experts-comptables et DAF. Elle permet de gérer jusqu'à 20 utilisateurs, de consulter les résultats par client et de générer des rapports comparatifs pour faciliter vos conseils.",
               },
             ].map((item, i) => (
-              <details key={i} className={`card-flat group cursor-pointer reveal reveal-d${i + 1}`} style={{ transition: 'all 0.3s ease' }}>
+              <details
+                key={i}
+                className={`card-flat group cursor-pointer reveal reveal-d${i + 1}`}
+                style={{ transition: 'all 0.3s ease' }}
+              >
                 <summary className="font-semibold list-none flex justify-between items-center gap-4 py-1">
                   <span className="text-sm">{item.q}</span>
                   <span
                     className="text-xl flex-shrink-0 transition-transform duration-300 group-open:rotate-45"
-                    style={{ color: '#2E9E72' }}
-                  >+</span>
+                    style={{ color: '#818CF8' }}
+                  >
+                    +
+                  </span>
                 </summary>
                 <p className="mt-4 text-gray-400 text-sm leading-relaxed">{item.a}</p>
               </details>
@@ -622,19 +827,22 @@ export default function Home() {
       <section className="py-28 px-6">
         <div className="max-w-2xl mx-auto text-center card glow gradient-border reveal">
           <div className="py-6">
-            <span className="text-5xl mb-6 block float-badge">📊</span>
+            <span className="text-5xl mb-6 block float-badge">⚡</span>
             <h2 className="text-3xl font-extrabold mb-4 tracking-tight">
-              Prêt à trouver votre logiciel parfait ?
+              Prêt à trouver votre match parfait ?
             </h2>
             <p className="text-gray-400 mb-8 max-w-md mx-auto leading-relaxed text-sm">
-              Rejoignez 2 500+ professionnels qui ont déjà trouvé leur logiciel comptable idéal grâce à l&apos;IA de ComptaQuiz.
+              Rejoignez 3 200+ micro-entrepreneurs qui ont déjà trouvé leur logiciel comptable
+              idéal grâce au matching IA de ComptaMatch.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
               <a href="#quiz" className="btn-primary">
-                <span>🎯 Lancer le quiz IA — c&apos;est gratuit</span>
+                <span>⚡ Lancer le matching — c&apos;est gratuit</span>
               </a>
             </div>
-            <p className="text-xs text-gray-600 mt-6">Aucune carte bancaire requise · Résultat immédiat · 2 minutes chrono</p>
+            <p className="text-xs text-gray-600 mt-6">
+              Aucune carte bancaire requise · Résultat immédiat · 2 minutes chrono
+            </p>
           </div>
         </div>
       </section>
@@ -644,19 +852,29 @@ export default function Home() {
         <div className="divider mb-12" />
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black" style={{ background: 'linear-gradient(135deg,#1A6B4A,#2E9E72)' }}>C</div>
-            <span className="font-extrabold tracking-tight">ComptaQuiz</span>
-            <span className="text-gray-600 text-xs ml-1">— Trouvez votre logiciel parfait</span>
+            <div
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black"
+              style={{ background: 'linear-gradient(135deg,#6366F1,#8B5CF6)' }}
+            >
+              ⚡
+            </div>
+            <span className="font-extrabold tracking-tight">ComptaMatch</span>
+            <span className="text-gray-600 text-xs ml-1">— Votre logiciel comptable, matché.</span>
           </div>
           <div className="flex gap-6 text-sm text-gray-500">
-            <a href="#" className="hover:text-white transition-colors">Confidentialité</a>
-            <a href="#" className="hover:text-white transition-colors">CGU</a>
-            <a href="#" className="hover:text-white transition-colors">Contact</a>
+            <a href="#" className="hover:text-white transition-colors">
+              Confidentialité
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              CGU
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              Contact
+            </a>
           </div>
-          <p className="text-xs text-gray-600">© 2026 ComptaQuiz. Tous droits réservés.</p>
+          <p className="text-xs text-gray-600">© 2026 ComptaMatch. Tous droits réservés.</p>
         </div>
       </footer>
-
     </main>
   );
 }
