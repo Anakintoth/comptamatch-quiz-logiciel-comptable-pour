@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 282 40" width="282" height="40">
-  <rect x="0" y="4" width="40" height="32" rx="8" fill="#f59e0b"/>
-  <text x="20" y="27" text-anchor="middle" font-size="20">🚀</text>
-  <text x="52" y="28" font-family="system-ui,-apple-system,sans-serif" font-size="20" font-weight="800" fill="white">Comptamatch</text><text x="184" y="28" font-family="system-ui,-apple-system,sans-serif" font-size="20" font-weight="400" fill="#f59e0b">Quiz Log</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172 40" width="172" height="40">
+  <rect x="0" y="4" width="40" height="32" rx="8" fill="#1B4F72"/>
+  <text x="20" y="27" text-anchor="middle" font-size="20">🧾</text>
+  <text x="52" y="28" font-family="system-ui,-apple-system,sans-serif" font-size="20" font-weight="800" fill="white">ComptaQuiz</text>
 </svg>
