@@ -407,6 +407,57 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ══ SOFTWARE MARQUEE ══ */}
+      <section className="py-10 px-0 relative overflow-hidden">
+        <p className="text-center text-xs text-gray-600 uppercase tracking-widest mb-6 font-semibold">
+          Couvre 20+ logiciels du marché français
+        </p>
+        <div className="marquee-wrap">
+          <div className="marquee-track">
+            {[
+              { name: 'Sage 50', emoji: '📗' },
+              { name: 'Cegid Quadratus', emoji: '🔷' },
+              { name: 'Pennylane', emoji: '💜' },
+              { name: 'QuickBooks', emoji: '🟢' },
+              { name: 'EBP Comptabilité', emoji: '🔵' },
+              { name: 'Indy', emoji: '⚡' },
+              { name: 'Axonaut', emoji: '🚀' },
+              { name: 'Evoliz', emoji: '✨' },
+              { name: 'Henrri', emoji: '🎯' },
+              { name: 'Sellsy', emoji: '📊' },
+              { name: 'Sage 100', emoji: '📘' },
+              { name: 'Ciel Compta', emoji: '☁️' },
+              { name: 'Odoo', emoji: '🟠' },
+              { name: 'Tiime', emoji: '⏱️' },
+              { name: 'GestSup', emoji: '🏦' },
+              { name: 'MyUnisoft', emoji: '🌐' },
+              // duplicate for seamless loop
+              { name: 'Sage 50', emoji: '📗' },
+              { name: 'Cegid Quadratus', emoji: '🔷' },
+              { name: 'Pennylane', emoji: '💜' },
+              { name: 'QuickBooks', emoji: '🟢' },
+              { name: 'EBP Comptabilité', emoji: '🔵' },
+              { name: 'Indy', emoji: '⚡' },
+              { name: 'Axonaut', emoji: '🚀' },
+              { name: 'Evoliz', emoji: '✨' },
+              { name: 'Henrri', emoji: '🎯' },
+              { name: 'Sellsy', emoji: '📊' },
+              { name: 'Sage 100', emoji: '📘' },
+              { name: 'Ciel Compta', emoji: '☁️' },
+              { name: 'Odoo', emoji: '🟠' },
+              { name: 'Tiime', emoji: '⏱️' },
+              { name: 'GestSup', emoji: '🏦' },
+              { name: 'MyUnisoft', emoji: '🌐' },
+            ].map((s, i) => (
+              <span key={i} className="marquee-item">
+                <span>{s.emoji}</span>
+                {s.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ══ MOCKUP BROWSER ══ */}
       <section className="py-12 px-6 relative">
         <div className="max-w-3xl mx-auto reveal">
@@ -608,6 +659,58 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ══ MATCH PREVIEW ══ */}
+      <section className="py-20 px-6 relative">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="badge badge-accent mb-4">Exemple de résultat</div>
+            <h2 className="text-3xl font-extrabold tracking-tight mb-3">
+              À quoi ressemble <span className="gradient-text">votre match</span> ?
+            </h2>
+            <p className="text-gray-500 text-sm">
+              Pour un freelance en conseil, budget &lt; 50 €/mois, priorité facilité d&apos;utilisation
+            </p>
+          </div>
+          <div className="card glow-sm reveal space-y-3">
+            {[
+              { name: 'Pennylane', score: 96, tag: 'Match idéal' },
+              { name: 'Indy', score: 88, tag: 'Excellent' },
+              { name: 'Evoliz', score: 79, tag: 'Très bien' },
+              { name: 'QuickBooks', score: 64, tag: 'Correct' },
+            ].map((m, i) => (
+              <div key={i} className="match-row">
+                <span className="text-sm font-bold w-28 flex-shrink-0 text-gray-200">{m.name}</span>
+                <div className="match-bar-bg">
+                  <div
+                    className="match-bar-fill"
+                    style={{ width: `${m.score}%` }}
+                  />
+                </div>
+                <span
+                  className="text-xs font-black w-7 text-right flex-shrink-0"
+                  style={{ color: m.score >= 90 ? '#818CF8' : m.score >= 75 ? '#A78BFA' : '#6B7280' }}
+                >
+                  {m.score}
+                </span>
+                <span
+                  className="text-xs px-2.5 py-1 rounded-full font-semibold flex-shrink-0"
+                  style={{
+                    background: m.score >= 90 ? 'rgba(99,102,241,0.12)' : 'rgba(255,255,255,0.04)',
+                    color: m.score >= 90 ? '#818CF8' : '#6B7280',
+                    border: `1px solid ${m.score >= 90 ? 'rgba(99,102,241,0.25)' : 'rgba(255,255,255,0.06)'}`,
+                  }}
+                >
+                  {m.tag}
+                </span>
+              </div>
+            ))}
+            <p className="text-xs text-gray-600 pt-2 text-center">
+              ✦ Justification IA détaillée · Tarifs · Points forts · Limites — inclus dans chaque résultat
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ══ PRICING ══ */}
       <section id="pricing" className="py-28 px-6 relative">
         <div className="max-w-5xl mx-auto">
@@ -696,7 +799,7 @@ export default function Home() {
             <div className="card text-center reveal reveal-d3">
               <h3 className="font-bold text-lg mb-2">Cabinet</h3>
               <div className="text-4xl font-black mb-1 mt-4">
-                29.99<span className="text-lg font-normal text-gray-500"> €</span>
+                29.99
               </div>
               <p className="text-gray-500 text-xs mb-8 uppercase tracking-widest">€ / mois</p>
               <ul className="text-sm text-gray-400 space-y-3 mb-8 text-left">
