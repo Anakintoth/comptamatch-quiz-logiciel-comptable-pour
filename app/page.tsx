@@ -33,7 +33,7 @@ export default function Home() {
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-300 mb-4 max-w-2xl mx-auto leading-relaxed reveal reveal-d2">Maîtrisez la comptabilité, question par question</p>
-          <p className="text-gray-500 mb-12 max-w-lg mx-auto reveal reveal-d2">Testez et validez vos connaissances en logiciels comptables grâce à des quiz interactifs conçus par des experts-comptables.</p>
+          <p className="text-gray-500 mb-12 max-w-lg mx-auto reveal reveal-d2">ComptaQuiz aide les comptables et étudiants à maîtriser les logiciels comptables grâce à des quiz interactifs ciblés et progressifs.</p>
 
           <div className="flex gap-4 justify-center flex-wrap reveal reveal-d3">
             <a href="#pricing" className="btn-primary"><span>📊 Commencer gratuitement</span></a>
@@ -43,7 +43,7 @@ export default function Home() {
           <div className="mt-16 flex justify-center gap-8 text-sm text-gray-600 reveal reveal-d4">
             <div className="flex items-center gap-2"><span style={{ color: "#1B4F72" }}>&#9679;</span> 500+ utilisateurs</div>
             <div className="flex items-center gap-2"><span style={{ color: "#2E86C1" }}>&#9679;</span> 4.9/5 satisfaction</div>
-            <div className="flex items-center gap-2"><span style={{ color: "#F39C12" }}>&#9679;</span> Support 24/7</div>
+            <div className="flex items-center gap-2"><span style={{ color: "#27AE60" }}>&#9679;</span> Support 24/7</div>
           </div>
         </div>
       </section>
@@ -52,7 +52,7 @@ export default function Home() {
       <section className="py-16 px-6 relative">
         <div className="max-w-4xl mx-auto">
           <div className="card glow p-1 rounded-2xl reveal">
-            <div className="rounded-xl overflow-hidden" style={{ background: "#152D45" }}>
+            <div className="rounded-xl overflow-hidden" style={{ background: "#152B3C" }}>
               <div className="flex items-center gap-2 px-4 py-3 border-b" style={{ borderColor: "#1B4F7215" }}>
                 <div className="w-3 h-3 rounded-full" style={{ background: "#f85149" }} />
                 <div className="w-3 h-3 rounded-full" style={{ background: "#d29922" }} />
@@ -65,7 +65,7 @@ export default function Home() {
                 <div className="grid grid-cols-3 gap-4 mt-6">
                   <div className="h-24 rounded-lg" style={{ background: "#1B4F7208", border: "1px solid #1B4F7215" }} />
                   <div className="h-24 rounded-lg" style={{ background: "#2E86C108", border: "1px solid #2E86C115" }} />
-                  <div className="h-24 rounded-lg" style={{ background: "#F39C1208", border: "1px solid #F39C1215" }} />
+                  <div className="h-24 rounded-lg" style={{ background: "#27AE6008", border: "1px solid #27AE6015" }} />
                 </div>
                 <div className="h-4 rounded-full w-2/3 mt-4" style={{ background: "#1B4F7210" }} />
                 <div className="h-4 rounded-full w-1/3" style={{ background: "#1B4F7208" }} />
@@ -85,16 +85,16 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="card reveal reveal-d1">
-              <p className="text-lg font-medium leading-relaxed">📝 Quiz adaptatifs couvrant Sage, Ciel, EBP et QuadraCompta</p>
+              <p className="text-lg font-medium leading-relaxed">📝 Quiz adaptatifs sur tous les logiciels comptables majeurs</p>
             </div>
             <div className="card reveal reveal-d2">
-              <p className="text-lg font-medium leading-relaxed">📈 Tableau de bord de progression personnalisé</p>
+              <p className="text-lg font-medium leading-relaxed">📈 Suivi de progression et tableau de bord personnalisé</p>
             </div>
             <div className="card reveal reveal-d3">
-              <p className="text-lg font-medium leading-relaxed">🎯 Exercices pratiques basés sur des cas réels d'entreprise</p>
+              <p className="text-lg font-medium leading-relaxed">🏆 Certifications et badges de compétences reconnus</p>
             </div>
             <div className="card reveal reveal-d4">
-              <p className="text-lg font-medium leading-relaxed">🏆 Certifications reconnues par les cabinets comptables</p>
+              <p className="text-lg font-medium leading-relaxed">🤝 Mode collaboratif pour équipes et cabinets comptables</p>
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default function Home() {
             <div className="card gradient-border text-center relative glow reveal reveal-d2 md:-mt-4 md:pb-10">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold" style={{ background: "linear-gradient(135deg, #1B4F72, #2E86C1)", color: "white" }}>POPULAIRE</div>
               <h3 className="font-bold text-lg mb-2 mt-2">Expert</h3>
-              <div className="text-5xl font-extrabold mb-1">14.99<span className="text-lg text-gray-500">EUR</span></div>
+              <div className="text-5xl font-extrabold mb-1">9.99<span className="text-lg text-gray-500">EUR</span></div>
               <p className="text-gray-500 text-sm mb-8">/ mois</p>
               <ul className="text-sm text-gray-400 space-y-3 mb-8 text-left">
                 <li className="flex items-center gap-2"><span style={{ color: "#1B4F72" }}>&#10003;</span> Tout du plan Découverte</li>
@@ -138,7 +138,7 @@ export default function Home() {
             {/* Enterprise */}
             <div className="card text-center reveal reveal-d3">
               <h3 className="font-bold text-lg mb-2">Cabinet</h3>
-              <div className="text-4xl font-extrabold mb-1">49.99<span className="text-lg text-gray-500">EUR</span></div>
+              <div className="text-4xl font-extrabold mb-1">39.99<span className="text-lg text-gray-500">EUR</span></div>
               <p className="text-gray-500 text-sm mb-8">/ mois</p>
               <ul className="text-sm text-gray-400 space-y-3 mb-8 text-left">
                 <li className="flex items-center gap-2"><span style={{ color: "#1B4F72" }}>&#10003;</span> Tout du plan Expert</li>
@@ -161,35 +161,35 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="card reveal reveal-d1">
-              <div className="flex gap-1 mb-4" style={{ color: "#F39C12" }}>*****</div>
-              <p className="text-gray-300 italic mb-6 leading-relaxed">"Grâce à ComptaQuiz, j'ai validé mon module logiciels comptables du premier coup. Les quiz sont précis et vraiment proches des cas réels."</p>
+              <div className="flex gap-1 mb-4" style={{ color: "#27AE60" }}>*****</div>
+              <p className="text-gray-300 italic mb-6 leading-relaxed">"ComptaQuiz m'a permis de former mon équipe sur Sage en deux semaines. Un outil indispensable pour tout cabinet moderne."</p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#1B4F7220", color: "#1B4F72" }}>S</div>
                 <div>
                   <p className="font-semibold text-sm">Sophie Marchand</p>
-                  <p className="text-xs text-gray-500">Étudiante en DCG</p>
+                  <p className="text-xs text-gray-500">Expert-comptable, Paris</p>
                 </div>
               </div>
             </div>
             <div className="card reveal reveal-d2">
-              <div className="flex gap-1 mb-4" style={{ color: "#F39C12" }}>*****</div>
-              <p className="text-gray-300 italic mb-6 leading-relaxed">"J'ai changé de logiciel en entreprise et ComptaQuiz m'a permis de me former rapidement sur Sage sans perdre de temps en formation classique."</p>
+              <div className="flex gap-1 mb-4" style={{ color: "#27AE60" }}>*****</div>
+              <p className="text-gray-300 italic mb-6 leading-relaxed">"Grâce aux quiz progressifs, j'ai validé mes compétences sur QuickBooks avant mon stage. Je me suis senti vraiment préparé."</p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#1B4F7220", color: "#1B4F72" }}>J</div>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#1B4F7220", color: "#1B4F72" }}>T</div>
                 <div>
-                  <p className="font-semibold text-sm">Julien Ferretti</p>
-                  <p className="text-xs text-gray-500">Technicien comptable</p>
+                  <p className="font-semibold text-sm">Thomas Lebrun</p>
+                  <p className="text-xs text-gray-500">Étudiant DCG, Lyon</p>
                 </div>
               </div>
             </div>
             <div className="card reveal reveal-d3">
-              <div className="flex gap-1 mb-4" style={{ color: "#F39C12" }}>*****</div>
-              <p className="text-gray-300 italic mb-6 leading-relaxed">"Nous utilisons ComptaQuiz pour évaluer nos nouveaux collaborateurs. C'est fiable, rapide et nos managers ont enfin un vrai outil de suivi."</p>
+              <div className="flex gap-1 mb-4" style={{ color: "#27AE60" }}>*****</div>
+              <p className="text-gray-300 italic mb-6 leading-relaxed">"Le suivi de progression en temps réel nous a changé la vie. On sait exactement où chaque collaborateur en est dans sa montée en compétences."</p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#1B4F7220", color: "#1B4F72" }}>M</div>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: "#1B4F7220", color: "#1B4F72" }}>I</div>
                 <div>
-                  <p className="font-semibold text-sm">Marie-Claire Dubois</p>
-                  <p className="text-xs text-gray-500">Responsable formation, cabinet d'expertise</p>
+                  <p className="font-semibold text-sm">Isabelle Fontaine</p>
+                  <p className="text-xs text-gray-500">Responsable formation, Bordeaux</p>
                 </div>
               </div>
             </div>
@@ -207,24 +207,24 @@ export default function Home() {
           <div className="space-y-4">
             <details className="card group cursor-pointer reveal reveal-d1">
               <summary className="font-semibold list-none flex justify-between items-center">
-                Quels logiciels comptables sont couverts par les quiz ?
+                Quels logiciels comptables sont couverts par ComptaQuiz ?
                 <span className="text-gray-500 group-open:rotate-45 transition-transform duration-300 text-xl">+</span>
               </summary>
-              <p className="mt-4 text-gray-400 leading-relaxed">ComptaQuiz couvre les principaux logiciels du marché français : Sage 50 & 100, Ciel Compta, EBP Comptabilité, QuadraCompta et Pennylane. De nouveaux modules sont ajoutés chaque trimestre.</p>
+              <p className="mt-4 text-gray-400 leading-relaxed">ComptaQuiz couvre les principaux logiciels du marché français : Sage, Ciel, EBP, QuickBooks, Pennylane, et bien d'autres. Notre bibliothèque s'enrichit régulièrement.</p>
             </details>
             <details className="card group cursor-pointer reveal reveal-d2">
               <summary className="font-semibold list-none flex justify-between items-center">
                 Les certifications ComptaQuiz sont-elles reconnues par les employeurs ?
                 <span className="text-gray-500 group-open:rotate-45 transition-transform duration-300 text-xl">+</span>
               </summary>
-              <p className="mt-4 text-gray-400 leading-relaxed">Oui. Nos certifications sont établies en partenariat avec des cabinets d'expertise comptable partenaires. Elles constituent un atout reconnu sur votre CV et lors des entretiens.</p>
+              <p className="mt-4 text-gray-400 leading-relaxed">Nos badges de compétences sont reconnus par un réseau croissant de cabinets partenaires. Ils attestent d'une maîtrise opérationnelle vérifiée des logiciels comptables.</p>
             </details>
             <details className="card group cursor-pointer reveal reveal-d3">
               <summary className="font-semibold list-none flex justify-between items-center">
-                Puis-je essayer ComptaQuiz avant de m'abonner ?
+                Puis-je tester ComptaQuiz avant de m'abonner ?
                 <span className="text-gray-500 group-open:rotate-45 transition-transform duration-300 text-xl">+</span>
               </summary>
-              <p className="mt-4 text-gray-400 leading-relaxed">Absolument. L'offre Découverte est gratuite et permanente. Elle vous donne accès à plus de 50 questions de démonstration sur chaque logiciel, sans carte bancaire requise.</p>
+              <p className="mt-4 text-gray-400 leading-relaxed">Oui, l'offre Découverte est gratuite et sans limite de durée. Elle vous donne accès à un large catalogue de quiz pour évaluer la plateforme à votre rythme.</p>
             </details>
           </div>
         </div>
