@@ -4,12 +4,12 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'ComptaQuiz — Maîtrisez la comptabilité, testez vos connaissances',
-  description: 'Maîtrisez la comptabilité, testez vos connaissances',
+  title: 'ComptaQuiz — Maîtrisez la comptabilité, question par question',
+  description: 'Maîtrisez la comptabilité, question par question',
   icons: { icon: '/favicon.svg' },
   openGraph: {
     title: 'ComptaQuiz',
-    description: 'Maîtrisez la comptabilité, testez vos connaissances',
+    description: 'Maîtrisez la comptabilité, question par question',
     type: 'website',
   },
 };
